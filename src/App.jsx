@@ -73,24 +73,42 @@ function App() {
 
   return (
     <div className="min-h-screen p-4">
-      <div className="mx-auto max-w-md">
-        <h1 className="mb-6 text-center text-3xl font-mono font-semibold">Deeds Tracker</h1>
+      <div className="mx-auto w-full max-w-md sm:max-w-lg md:max-w-xl">
+        <h1 className="mb-6 text-center text-2xl font-mono font-semibold sm:text-3xl md:text-4xl">
+          Deeds Tracker
+        </h1>
 
-        <div className="flex justify-center items-center gap-3">
-          <button onClick={goToPreviousDay} className="text-lg"> {'\u2190'} </button>
+        <div className="mb-6 flex flex-wrap items-center justify-center gap-2 sm:gap-4">
+          <button
+            onClick={goToPreviousDay}
+            className="rounded-lg px-3 py-2 text-lg hover:bg-gray-100"
+          >
+            ←
+          </button>
 
-          <p className="text-lg text-center min-w-44">{header}</p>
+          <p className="min-w-45 text-center text-md font-lg sm:text-lg">
+            {header}
+          </p>
 
-          <button onClick={goToNextDay} className="text-lg"> {'\u2192'} </button>
+          <button
+            onClick={goToNextDay}
+            className="rounded-lg px-3 py-2 text-lg hover:bg-gray-100"
+          >
+            →
+          </button>
 
-          {!isToday && (
-            <button onClick={goToToday} className="btn">
-              Today {'\u21BA'}
-            </button>
-          )}
+          <button
+            onClick={goToToday}
+            className={`rounded-lg border px-3 py-2 text-sm font-medium transition sm:text-base ${isToday
+              ? "invisible"
+              : "visible hover:bg-gray-100"
+              }`}
+          >
+            Today ↺
+          </button>
         </div>
 
-        <div className="space-y-3">
+        <div className="mt-6 space-y-4">
           {prayers.map((namaaz) => (
             <NamaazCard
               key={namaaz}

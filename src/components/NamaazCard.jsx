@@ -2,7 +2,7 @@ function NamaazCard({ namaaz, todayData, updatePrayerStatus }) {
 
     return (
         <div>
-            <div className="card bg-base-100 max-w-90 shadow-sm p-4 rounded-2xl m-3 flex">
+            <div className="card bg-base-100 w-full max-w-90 shadow-sm p-4 rounded-2xl m-3 flex mx-auto">
                 <div className="flex items-center justify-between flex-1">
 
                     <p className="text-lg font-semibold tracking-wide">
