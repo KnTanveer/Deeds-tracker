@@ -1,7 +1,13 @@
 import { Fragment, useEffect, useMemo, useRef } from "react";
 import { formateDateKey } from "../utils/formatDate";
 
-const prayers = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
+const prayers = [
+    { key: "Fajr", label: "F" },
+    { key: "Dhuhr", label: "D" },
+    { key: "Asr", label: "A" },
+    { key: "Maghrib", label: "M" },
+    { key: "Isha", label: "I" },
+];
 
 const statusColor = {
     jamaat: "bg-green-500",
@@ -62,7 +68,7 @@ function NamaazHeatmap({ namaazData, minDays = 14 }) {
         <div ref={scrollRef} className="w-full overflow-x-auto mb-4">
             <div
                 className="inline-grid gap-1 min-w-max"
-                style={{ gridTemplateColumns: `80px repeat(${dateRange.length}, minmax(16px, 1fr))`, }}
+                style={{ gridTemplateColumns: `24px repeat(${dateRange.length}, 18px)` }}
             >
                 <div />
 
@@ -75,24 +81,26 @@ function NamaazHeatmap({ namaazData, minDays = 14 }) {
                     </div>
                 ))}
 
-                {prayers.map((prayer) => (
-                    <Fragment key={prayer}>
-                        <div className=" sticky left-0 z-10 bg-base-200 flex items-center whitespace-nowrap text-xs sm:text-sm font-semibold px-2">
-                            {prayer}
+                {prayers.map(({ key, label }) => (
+                    <Fragment key={key}>
+                        <div
+                            className="sticky left-0 z-10 bg-base-100 flex items-center justify-center text-xs font-bold text-base-content/70"
+                            title={key}
+                        >
+                            {label}
                         </div>
 
                         {dateRange.map((day) => {
-                            const key = formateDateKey(day);
+                            const dateKey = formateDateKey(day);
 
                             const status =
-                                namaazData?.[key]?.[prayer]?.status ||
-                                "none";
+                                namaazData?.[dateKey]?.[key]?.status || "none";
 
                             return (
                                 <div
-                                    key={`${prayer}-${key}`}
-                                    title={`${prayer}: ${status}`}
-                                    className={`h-4 w-4 sm:h-5 sm:w-5 rounded ${statusColor[status]}`}
+                                    key={`${key}-${dateKey}`}
+                                    title={`${key}: ${status}`}
+                                    className={`h-4 w-4 rounded ${statusColor[status]}`}
                                 />
                             );
                         })}

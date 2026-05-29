@@ -34,11 +34,11 @@ function Stats({ namaazData }) {
         let perfectDays = 0;
 
         Object.values(data).forEach((day) => {
-            const allJamaat = Object.values(day).every(
+            const allPrayed = Object.values(day).every(
                 (prayer) => prayer.status !== "none"
             );
 
-            if (allJamaat) {
+            if (allPrayed) {
                 perfectDays++;
             }
         });
@@ -59,14 +59,12 @@ function Stats({ namaazData }) {
     }
 
     return (
-        <div className="min-h-screen p-4">
-            <div className="mx-auto w-full max-w-md sm:max-w-lg md:max-w-xl">
-                <NamaazHeatmap
-                    namaazData={namaazData}
-                    days={14}
-                />
+        <div className="flex justify-center px-4 py-8">
+            <div className="card bg-base-100 w-full max-w-4xl shadow-xl rounded-3xl p-6">
 
-                <div className="grid gap-3 grid-cols-2 ">
+                <NamaazHeatmap namaazData={namaazData} />
+
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <StatCard
                         title="Total Prayers"
                         value={getTotalPrayerCount(namaazData)}
@@ -89,7 +87,7 @@ function Stats({ namaazData }) {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default Stats
+export default Stats;
