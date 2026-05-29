@@ -86,7 +86,7 @@ function App() {
             ←
           </button>
 
-          <p className="min-w-45 text-center text-md font-lg sm:text-sm">
+          <p className="min-w-45 text-center text-md font-lg">
             {header}
           </p>
 
