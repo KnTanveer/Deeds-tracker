@@ -1,13 +1,38 @@
 import NamaazCard from "./components/NamaazCard";
-import NavigateDates from "./components/navigateDates";
-import PrayerHeatmap from "./components/PrayerHeatmap";
 import Stats from "./pages/Stats";
-import { formateDateKey } from "./utils/formatDate";
+import { formateDateKey, formatRedeableDate } from "./utils/formatDate";
 import { useEffect, useState } from "react";
 
 function App() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const dateKey = formateDateKey(selectedDate);
+
+  // previous & next dates
+  const goToPreviousDay = () => {
+    const newDate = new Date(selectedDate);
+    newDate.setDate(newDate.getDate() - 1);
+
+    setSelectedDate(newDate);
+  };
+
+  const goToNextDay = () => {
+    const newDate = new Date(selectedDate);
+    newDate.setDate(newDate.getDate() + 1);
+    const today = new Date();
+
+    if (formateDateKey(newDate) > formateDateKey(today)) {
+      return;
+    }
+
+    setSelectedDate(newDate);
+  };
+
+  // navigate to today
+  function goToToday() {
+    const today = new Date();
+
+    setSelectedDate(today);
+  };
 
   const createEmptyDay = () => ({
     Fajr: { status: "none", points: 0 },
@@ -43,11 +68,9 @@ function App() {
     }));
   };
 
-  const [statsView, setStatsView] =
-    useState("week");
-
-  
   const prayers = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
+  const header = formatRedeableDate(selectedDate);
+  const isToday = formateDateKey(selectedDate) === formateDateKey(new Date());
 
   return (
     <div className="min-h-screen p-4">
@@ -56,8 +79,34 @@ function App() {
           Deeds Tracker
         </h1>
 
-        <NavigateDates selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
+        {/* Navigate dates */}
+        <div className="mb-6 flex items-center justify-center mx-auto w-full max-w-90">
+          <button
+            onClick={goToPreviousDay}
+            className="rounded-lg px-3 py-2 text-lg hover:bg-gray-100"
+          >
+            ←
+          </button>
 
+          <p className="min-w-45 text-center text-md">
+            {header}
+          </p>
+
+          <button
+            onClick={goToNextDay}
+            className="rounded-lg px-3 py-2 text-lg hover:bg-gray-100"
+          >
+            →
+          </button>
+
+          <button
+            onClick={goToToday}
+            className={`btn btn-outline ${isToday ? "invisible" : "visible hover:bg-gray-100"}`}
+          >
+            ↺
+          </button>
+        </div>
+        
         <div className="mt-6 space-y-4">
           {prayers.map((namaaz) => (
             <NamaazCard
@@ -69,41 +118,7 @@ function App() {
           ))}
         </div>
 
-        <div className="tabs tabs-boxed justify-center mb-6">
-          <button
-            className={`tab ${statsView === "week" ? "tab-active" : ""
-              }`}
-            onClick={() => setStatsView("week")}
-          >
-            7 Days
-          </button>
-
-          <button
-            className={`tab ${statsView === "month" ? "tab-active" : ""
-              }`}
-            onClick={() => setStatsView("month")}
-          >
-            28 Days
-          </button>
-
-          {statsView === "week" && (
-            <PrayerHeatmap
-              namaazData={namaazData}
-              days={14}
-            />
-          )}
-
-          {statsView === "month" && (
-            <PrayerHeatmap
-              namaazData={namaazData}
-              days={14}
-            />
-          )}
-
-        </div>
-
         <Stats namaazData={namaazData} />
-        
       </div>
     </div>
   )

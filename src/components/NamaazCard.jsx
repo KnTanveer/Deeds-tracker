@@ -14,25 +14,25 @@ function NamaazCard({ namaaz, todayData, updatePrayerStatus }) {
                             type="radio" name={namaaz}
                             checked={todayData?.[namaaz].status === "jamaat"}
                             onChange={() => updatePrayerStatus(namaaz, "jamaat")}
-                            className="radio bg-green-100 border-green-300 checked:bg-green-200 checked:text-green-600 checked:border-green-600" />
+                            className="radio bg-green-200 border-green-300 checked:bg-green-200 checked:text-green-600 checked:border-green-600" />
 
                         <input
                             type="radio" name={namaaz}
                             checked={todayData?.[namaaz].status === "individual"}
                             onChange={() => updatePrayerStatus(namaaz, "individual")}
-                            className="radio bg-blue-100 border-blue-300 checked:bg-blue-200 checked:text-blue-600 checked:border-blue-600" />
+                            className="radio bg-blue-200 border-blue-300 checked:bg-blue-200 checked:text-blue-600 checked:border-blue-600" />
 
                         <input
                             type="radio" name={namaaz}
                             checked={todayData?.[namaaz].status === "qaza"}
                             onChange={() => updatePrayerStatus(namaaz, "qaza")}
-                            className="radio bg-yellow-100 border-yellow-300 checked:bg-yellow-200 checked:text-yellow-600 checked:border-yellow-600" />
+                            className="radio bg-yellow-200 border-yellow-300 checked:bg-yellow-200 checked:text-yellow-600 checked:border-yellow-600" />
 
                         <input
                             type="radio" name={namaaz}
                             checked={todayData?.[namaaz].status === "none"}
                             onChange={() => updatePrayerStatus(namaaz, "none")}
-                            className="radio bg-gray-100 border-gray-300 checked:bg-gray-200 checked:text-gray-600 checked:border-gray-600" />
+                            className="radio bg-gray-200 border-gray-300 checked:bg-gray-200 checked:text-gray-600 checked:border-gray-600" />
 
                     </div>
 

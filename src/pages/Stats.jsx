@@ -1,4 +1,5 @@
 import StatCard from "../components/StatCard";
+import NamaazHeatmap from "../components/NamaazHeatmap";
 
 function Stats({ namaazData }) {
     function getTotalJamaatCount(data) {
@@ -34,7 +35,7 @@ function Stats({ namaazData }) {
 
         Object.values(data).forEach((day) => {
             const allJamaat = Object.values(day).every(
-                (prayer) => prayer.status === "jamaat"
+                (prayer) => prayer.status !== "none"
             );
 
             if (allJamaat) {
@@ -45,13 +46,7 @@ function Stats({ namaazData }) {
         return perfectDays;
     }
 
-    const PRAYERS = [
-        "Fajr",
-        "Dhuhr",
-        "Asr",
-        "Maghrib",
-        "Isha",
-    ];
+    const PRAYERS = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha",];
 
     function getPrayerStats(data) {
         const stats = {};
@@ -140,41 +135,51 @@ function Stats({ namaazData }) {
     const weakestPrayer = getWeakestPrayer(namaazData);
 
     return (
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
-            <StatCard
-                icon="🕌"
-                title="Jamaat"
-                value={getTotalJamaatCount(namaazData)}
-            />
+        <div className="min-h-screen p-4">
+            <div className="mx-auto w-full max-w-md sm:max-w-lg md:max-w-xl">
+                <NamaazHeatmap
+                    namaazData={namaazData}
+                    days={14}
+                />
 
-            <StatCard
-                icon="🤲"
-                title="Prayers"
-                value={getTotalPrayerCount(namaazData)}
-            />
+                <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 ">
+                    <StatCard
+                        color="green"
+                        title="Prayers"
+                        value={getTotalPrayerCount(namaazData)}
+                    />
 
-            <StatCard
-                icon="🌟"
-                title="Perfect Days"
-                value={getPerfectDays(namaazData)}
-            />
+                    <StatCard
+                        color="green"
+                        title="Jamaat"
+                        value={getTotalJamaatCount(namaazData)}
+                    />
 
-            <StatCard
-                icon="🥇"
-                title="Best Prayer"
-                value={`${bestPrayer.prayer} (${bestPrayer.percentage}%)`}
-            />
+                    <StatCard
+                        color="blue"
+                        title="Best Prayer"
+                        value={`${bestPrayer.prayer} (${bestPrayer.percentage}%)`}
+                    />
 
-            <StatCard
-                icon="📉"
-                title="Weakest Prayer"
-                value={`${weakestPrayer.prayer} (${weakestPrayer.percentage}%)`}
-            />
+                    <StatCard
+                        color="blue"
+                        title="Perfect Days"
+                        value={getPerfectDays(namaazData)}
+                    />
 
-            <StatCard
-                title="Total Points"
-                value={getTotalPoints(namaazData)}
-            />
+                    <StatCard
+                    color="lime"
+                        title="Weakest Prayer"
+                        value={`${weakestPrayer.prayer} (${weakestPrayer.percentage}%)`}
+                    />
+
+                    <StatCard
+                    color="lime"
+                        title="Total Points"
+                        value={getTotalPoints(namaazData)}
+                    />
+                </div>
+            </div>
         </div>
     )
 }
