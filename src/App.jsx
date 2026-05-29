@@ -78,7 +78,7 @@ function App() {
           Deeds Tracker
         </h1>
 
-        <div className="mb-6 flex flex-wrap items-center justify-center gap-2 sm:gap-4">
+        <div className="mb-6 flex items-center justify-center mx-auto w-full max-w-90">
           <button
             onClick={goToPreviousDay}
             className="rounded-lg px-3 py-2 text-lg hover:bg-gray-100"
@@ -86,7 +86,7 @@ function App() {
             ←
           </button>
 
-          <p className="min-w-45 text-center text-md font-lg sm:text-lg">
+          <p className="min-w-45 text-center text-md font-lg sm:text-sm">
             {header}
           </p>
 
@@ -99,12 +99,9 @@ function App() {
 
           <button
             onClick={goToToday}
-            className={`rounded-lg border px-3 py-2 text-sm font-medium transition sm:text-base ${isToday
-              ? "invisible"
-              : "visible hover:bg-gray-100"
-              }`}
+            className={`btn btn-outline ${isToday ? "invisible" : "visible hover:bg-gray-100" }`}
           >
-            Today ↺
+            ↺
           </button>
         </div>
 
