@@ -60,7 +60,7 @@ function Stats({ namaazData }) {
 
     return (
         <div className="flex justify-center px-4 py-8">
-            <div className="card bg-base-100 w-full max-w-4xl shadow-xl rounded-3xl p-6">
+            <div className="max-w-90">
 
                 <NamaazHeatmap namaazData={namaazData} />
 
