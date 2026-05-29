@@ -1,9 +1,8 @@
-function StatCard({ color, title, value }) {
-    const colorCss = `text-${color}-300`;
+function StatCard({ title, value }) {
 
     return (
-        <div className="badge badge-lg sm:badge-md">
-            <p className={colorCss}>{title}</p>
+        <div className="badge badge-md sm:badge-lg">
+            <p>{title}</p>
             {value}
         </div>
     );
